@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+<nav>
+  <div class="logo">Sanjeev Ranjan</div>
+  <ul>
+  <li><a href="#about">About</a></li>
+  <li><a href="#skills">Skills</a></li>
+  <li><a href="#projects">Projects</a></li>
+  <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="hero-content">
+    <p class="hero-greeting">Hello, World! 👋</p>
+    <h1>I'm <span class="highlight">Sanjeev Ranjan</span></h1>
+    <p class="hero-subtitle">Aspiring Full Stack Web Developer</p>
+    <p class="hero-desc">I build beautiful websites and I'm on a journey to master full stack development.</p>
+    <a href="#contact" class="btn">Hire Me</a>
+    <a href="#projects" class="btn btn-outline">See My Work</a>
+  </div>
+</header>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>Hey! I'm Sanjeev Ranjan, a passionate developer from India. I started my web development journey recently and I'm loving every step of it. I'm currently learning HTML, CSS, JavaScript, and working towards becoming a Full Stack Developer.</p>
+  <br>
+  <p>When I'm not coding, I'm exploring new technologies and challenging myself to build better things every day.</p>
+</section>
+
+<!-- SKILLS SECTION -->
+<section id="skills">
+  <h2>My Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">🌐</span>
+      <h3>HTML</h3>
+      <p>Building structured web pages</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🎨</span>
+      <h3>CSS</h3>
+      <p>Styling and designing layouts</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">⚡</span>
+      <h3>JavaScript</h3>
+      <p>Adding interactivity</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🗄️</span>
+      <h3>MongoDB</h3>
+      <p>Database management</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🚀</span>
+      <h3>Node.js</h3>
+      <p>Backend development</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔧</span>
+      <h3>Git</h3>
+      <p>Version control</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects">
+  <h2>My Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">💼</div>
+      <h3>Personal Portfolio</h3>
+      <p>This very website! Built with HTML, CSS and JavaScript from scratch.</p>
+      <div class="project-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
+      <a href="#" class="btn">View Project</a>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🚧</div>
+      <h3>Coming Soon</h3>
+      <p>More projects are on the way as I continue learning and building!</p>
+      <div class="project-tags">
+        <span class="tag">In Progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="contact-desc">Have a project in mind or just want to say hi? Drop me a message!</p>
+  <div class="contact-form">
+    <input type="text" id="name" placeholder="Your Name" />
+    <input type="email" id="email" placeholder="Your Email" />
+    <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+    <button class="btn" onclick="sendMessage()">Send Message 🚀</button>
+    <p id="form-response"></p>
+  </div>
+</section>
+
+    <footer>
+      <p>Made by Sanjeev Ranjan © 2026</p>
+    </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
