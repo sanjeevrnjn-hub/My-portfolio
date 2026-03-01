@@ -80,7 +80,7 @@ header {
   text-align: center;
   padding: 140px 20px 100px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 header::before {
@@ -93,6 +93,7 @@ header::before {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .hero-greeting {
@@ -151,23 +152,25 @@ header h1 {
   border: none;
   cursor: pointer;
   letter-spacing: 0.5px;
+  min-width: 150px;
+  text-align: center;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(167, 139, 250, 0.4);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(167, 139, 250, 0.6);
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
 }
-
 .btn-outline {
-  background: transparent;
-  border: 2px solid rgba(167, 139, 250, 0.6);
-  color: #a78bfa;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  border: none;
+  color: #ffffff;
 }
 
 .btn-outline:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(96, 165, 250, 0.6);
   background: linear-gradient(90deg, #a78bfa, #60a5fa);
-  color: #ffffff;
-  border-color: transparent;
 }
 
 /* ===== SECTIONS ===== */
@@ -384,4 +387,51 @@ footer {
 /* ===== SCROLL OFFSET FIX ===== */
 section {
   scroll-margin-top: 80px;
+}
+
+/* ===== SOCIAL LINKS ===== */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+  line-height: 1;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.social-link i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.social-link:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+/* ===== WHATSAPP BUTTON ===== */
+.social-link.whatsapp:hover {
+  background: #25D366;
+  border-color: transparent;
 }
