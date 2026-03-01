@@ -115,7 +115,7 @@ http://127.0.0.1:5500/index.html
 ## 📬 Contact
 
 - **WhatsApp:** [Chat with me](https://wa.me/918756122383)
-- **Instagram:** [@your_instagram](https://www.instagram.com/your_instagram)
+- **Instagram:** [Connect on Instagram](https://www.instagram.com/hi_sanjeev_)
 - **Email:** sanjeevrnnjnn@gmail.com
 - **GitHub:** [sanjeevrnjn-hub](https://github.com/sanjeevrnjn-hub)
 
