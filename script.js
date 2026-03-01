@@ -68,7 +68,7 @@ async function sendMessage() {
   response.style.color = "#a8a8b3";
 
   try {
-    const res = await fetch("http://localhost:5000/contact", {
+    const res = await fetch("https://my-portfolio-7vt8.onrender.com/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, message }),
