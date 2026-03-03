@@ -1,115 +1,151 @@
-// ===== TYPING ANIMATION =====
-const typingText = document.querySelector(".hero-subtitle");
-const words = [
-  "Aspiring Full Stack Developer",
-  "Web Designer",
-  "Problem Solver",
-  "JavaScript Enthusiast",
-];
+// ===== EMAILJS SETUP =====
+emailjs.init("KG6EqkjJIeSyGT1kB"); 
 
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+// ===== CUSTOM CURSOR =====
+const cursor = document.querySelector('.cursor');
+const follower = document.querySelector('.cursor-follower');
 
-function type() {
-  const currentWord = words[wordIndex];
-
-  if (isDeleting) {
-    typingText.textContent = currentWord.substring(0, charIndex - 1);
-    charIndex--;
-  } else {
-    typingText.textContent = currentWord.substring(0, charIndex + 1);
-    charIndex++;
-  }
-
-  if (!isDeleting && charIndex === currentWord.length) {
-    setTimeout(() => (isDeleting = true), 1500);
-  } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    wordIndex = (wordIndex + 1) % words.length;
-  }
-
-  const speed = isDeleting ? 80 : 120;
-  setTimeout(type, speed);
-}
-
-type();
-
-
-// ===== SCROLL REVEAL ANIMATION =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll("section").forEach((section) => {
-  section.classList.add("hidden");
-  observer.observe(section);
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    follower.style.left = e.clientX + 'px';
+    follower.style.top = e.clientY + 'px';
+  }, 80);
 });
 
+document.addEventListener('mousedown', () => {
+  cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+  follower.style.transform = 'translate(-50%, -50%) scale(0.5)';
+});
+document.addEventListener('mouseup', () => {
+  cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+  follower.style.transform = 'translate(-50%, -50%) scale(1)';
+});
 
-// ===== CONTACT FORM =====
-async function sendMessage() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-  const response = document.getElementById("form-response");
+// ===== NAVBAR SCROLL =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// ===== HAMBURGER MOBILE MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+}
+
+// ===== SCROLL REVEAL =====
+const revealElements = document.querySelectorAll(
+  '.reveal-up, .reveal-left, .reveal-right, .service-card, .skill-item, .work-card'
+);
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+revealElements.forEach(el => {
+  el.classList.add('reveal-up');
+  revealObserver.observe(el);
+});
+
+// ===== COUNTER ANIMATION =====
+const counters = document.querySelectorAll('.stat-num');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = parseInt(entry.target.getAttribute('data-count'));
+      let count = 0;
+      const increment = target / 40;
+      const timer = setInterval(() => {
+        count += increment;
+        if (count >= target) {
+          entry.target.textContent = target;
+          clearInterval(timer);
+        } else {
+          entry.target.textContent = Math.floor(count);
+        }
+      }, 40);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+counters.forEach(counter => counterObserver.observe(counter));
+
+// ===== ACTIVE NAV LINK =====
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.style.color = '';
+    if (link.getAttribute('href') === '#' + current) {
+      link.style.color = '#f5f5f0';
+    }
+  });
+});
+
+// ===== CONTACT FORM WITH EMAILJS =====
+const form = document.getElementById('contactForm');
+const statusEl = document.getElementById('formStatus');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const service = document.getElementById('service').value;
+  const message = document.getElementById('message').value.trim();
 
   if (!name || !email || !message) {
-    response.textContent = "⚠️ Please fill in all fields!";
-    response.style.color = "#ff6b6b";
+    statusEl.textContent = 'Please fill in all required fields.';
+    statusEl.style.color = '#ff6b6b';
     return;
   }
 
-  response.textContent = "Sending...";
-  response.style.color = "#a8a8b3";
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+  statusEl.textContent = '';
 
   try {
-    const res = await fetch("https://my-portfolio-7vt8.onrender.com/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, message }),
+    await emailjs.send("service_7cpd3xy", "template_bkfye5r", {
+      from_name: name,
+      from_email: email,
+      service_type: service || 'Not specified',
+      message: message,
+      to_email: "sanjeevrnjnn@gmail.com"
     });
 
-    const data = await res.json();
-
-    if (data.success) {
-      response.textContent = `✅ ${data.message}`;
-      response.style.color = "#4ecca3";
-      document.getElementById("name").value = "";
-      document.getElementById("email").value = "";
-      document.getElementById("message").value = "";
-    } else {
-      response.textContent = `❌ ${data.error}`;
-      response.style.color = "#ff6b6b";
-    }
-  } catch (error) {
-    response.textContent = "❌ Could not connect to server. Make sure backend is running!";
-    response.style.color = "#ff6b6b";
+    statusEl.textContent = '✓ Message sent! I will get back to you soon.';
+    statusEl.style.color = '#6bff9e';
+    form.reset();
+  } catch (err) {
+    statusEl.textContent = '✗ Something went wrong. Please WhatsApp me directly.';
+    statusEl.style.color = '#ff6b6b';
   }
-}
 
-
-// ===== SMOOTH ACTIVE NAV =====
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav ul li a");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 100;
-    if (window.scrollY >= sectionTop) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === `#${current}`) {
-      link.classList.add("active");
-    }
-  });
+  submitBtn.textContent = 'Send Message →';
+  submitBtn.disabled = false;
 });
